@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>静态分页</title>
+	<style type="text/css">
+		body,ul,div,p,li{
+			padding: 0;
+			margin: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#count{
+			position:absolute;
+			top: 50%;
+    		left: 50%;
+    		transform: translate(-50%,-50%);
+		}
+		#count>li{
+			float: left;
+			width: 35px;
+			height: 30px;
+			border:1px solid #ccc;
+			margin-left: -1px;
+			color: #f30;
+			cursor: pointer;
+			text-align: center;
+    		line-height: 30px;
+		}
+		#count>li.current{
+			background-color: #f30;
+			color: #fff;
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+	<ul id='count'>
+		<li v-for='(n,index) of count' :class='activeNumber==n?"current":""' @click='changeCount(index)'>{{n}}</li>
+	</ul>
+</body>
+<script type="text/javascript">
+	var pageCount = {
+		pagecount: 10
+	}
+	var count = new Vue({
+		el: '#count',
+		data:{
+			count: pageCount.pagecount,
+			activeNumber: 1
+		},
+		methods:{
+			changeCount: function(index){
+				this.activeNumber = index+1;  //Vue2中循环的n是1-10,但是索引还是0-9
+			}
+		}
+	})
+</script>
+</html>
